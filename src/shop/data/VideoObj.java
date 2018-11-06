@@ -1,5 +1,8 @@
 package shop.data;
 
+
+
+
 /**
  * Implementation of Video interface.
  * @see Data
@@ -8,6 +11,7 @@ final class VideoObj implements Video {
   private final String _title;
   private final int    _year;
   private final String _director;
+
 
   /**
    * Initialize all object attributes.
@@ -21,6 +25,7 @@ final class VideoObj implements Video {
       throw new IllegalArgumentException("Director and title must not be non-empty");
     if(!(year > 1800 && year < 5000))
       throw new IllegalArgumentException("Year must be between 1800 and 5000");
+
     _title = title.trim();
     _year = year;
     _director = director.trim();

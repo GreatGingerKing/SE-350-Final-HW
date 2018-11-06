@@ -146,4 +146,13 @@ public class DataTEST {
     catch (IllegalArgumentException e){ }
   }
 
+  @Test
+  void TestFlyWeight(){
+
+    Video v1 = Data.newVideo("H",1999,"H");
+    Video v2 = Data.newVideo("H",1999,"H");
+
+    assertSame(v1,v2);
+  }
+
 }

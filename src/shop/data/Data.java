@@ -3,6 +3,41 @@ package shop.data;
 import shop.command.RerunnableCommand;
 import shop.command.UndoableCommand;
 
+import java.util.HashMap;
+
+
+class Triple<L,M,N>{
+  private L l;
+  private M m;
+  private N n;
+
+  Triple(L l, M m, N n){
+    this.l =l;
+    this.m = m;
+    this.n =n;
+  }
+
+
+  public boolean equals(Object thatObject) {
+    if(this==thatObject) return true;
+    if(thatObject==null) return false;
+    if(!(thatObject instanceof Triple)) return false;
+
+    Triple<L,M,N> that = (Triple<L,M,N>) thatObject;
+    if(!(l.equals(that.l))) return false;
+
+    if(! m.equals(that.m)) return false;
+
+    if(!(n.equals(that.n))) return false;
+
+    return true;
+  }
+
+  public int hashCode(){
+    return l.hashCode()+m.hashCode()+n.hashCode();
+  }
+}
+
 /**
  * A static class for accessing data objects.
  */
@@ -11,6 +46,8 @@ public class Data {
   /**
    * Returns a new Inventory.
    */
+
+  static HashMap<Triple<String,Integer,String>,Video> videos = new HashMap<>();
   static public final Inventory newInventory() {
     return new InventorySet();
   }
@@ -21,12 +58,20 @@ public class Data {
    * @throws IllegalArgumentException if Video invariant violated.
    */
   static public Video newVideo(String title, int year, String director) {
-    try{
-      Video v = new VideoObj(title,year,director);
-      return v;
+    Triple<String,Integer,String > vt = new Triple<>(title.trim(),year,director.trim());
+
+    Video tv = videos.get(vt);
+    if(tv==null) {
+      try {
+        Video v = new VideoObj(title, year, director);
+        videos.put(vt,v);
+        return v;
+      } catch (IllegalArgumentException e) {
+        throw e;
+      }
     }
-    catch (IllegalArgumentException e){
-      throw e;
+    else{
+      return tv;
     }
   }
 

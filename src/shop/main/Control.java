@@ -1,32 +1,19 @@
 package shop.main;
 
-import shop.ui.UI;
-import shop.ui.UIMenu;
-import shop.ui.UIMenuAction;
-import shop.ui.UIMenuBuilder;
-import shop.ui.UIError;
-import shop.ui.UIForm;
-import shop.ui.UIFormTest;
-import shop.ui.UIFormBuilder;
+import shop.command.Command;
 import shop.data.Data;
 import shop.data.Inventory;
-import shop.data.Video;
 import shop.data.Record;
-import shop.command.Command;
+import shop.data.Video;
+import shop.ui.*;
+
 import java.util.Iterator;
-import java.util.List;
-
-enum States{
-  EXITED, EXIT, START;
-
-}
-
 
 
 class Control {
 
   enum States{
-    EXITED(null), EXIT(), START(MainMenu.values());
+    EXITED(null), EXIT(MainMenu.values()), START(MainMenu.values());
 
     private final MainMenu[] options;
 
@@ -38,6 +25,9 @@ class Control {
       return options;
     }
 
+  }
+  enum Menus{
+    MAINMENU, EXITMENU
   }
   enum MainMenu{
     DEFAULT("Default", new UIMenuAction() {
@@ -204,8 +194,8 @@ class Control {
 
     _menus = new UIMenu[NUMSTATES];
     _state = States.START;
-    
-    addEXIT(States.EXIT);
+
+    //addEXIT(States.EXIT);
     
     UIFormTest yearTest = new UIFormTest() {
         public boolean run(String input) {
@@ -243,7 +233,7 @@ class Control {
   void run() {
     try {
       while (_state != States.EXITED) {
-        _ui.processMenu(_state.getOptions());
+        //_ui.processMenu(_state.getOptions());
       }
     } catch (UIError e) {
       _ui.displayError("UI closed");
