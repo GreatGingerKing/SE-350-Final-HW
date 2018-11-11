@@ -243,11 +243,9 @@ class Control {
     public int size(){
       return items.length;
     }
-
     public String getHeading() {
       return header;
     }
-
     public String getPrompt(int i){
       return items[i].getPrompt();
     }
@@ -257,28 +255,24 @@ class Control {
 
   }
 
-
   private static States _state;
-    
   private static Inventory _inventory;
   private static UI _ui;
 
-
-
   Control(Inventory inventory, UI ui) {
+
     _inventory = inventory;
     _ui = ui;
-
     _state = States.START;
 
   }
-  
+
   void run() {
     try {
       while (_state != States.EXITED) {
         _ui.processMenu(_state);
       }
-    } catch (UIError e) {
+    } catch (Error e) {
       _ui.displayError("UI closed");
     }
   }

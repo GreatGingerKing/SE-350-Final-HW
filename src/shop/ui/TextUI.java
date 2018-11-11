@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-public final class TextUI implements UI {
+final class TextUI implements UI {
   final BufferedReader _in;
   final PrintStream _out;
 

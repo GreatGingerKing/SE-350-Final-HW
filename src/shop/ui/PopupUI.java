@@ -3,7 +3,7 @@ package shop.ui;
 import javax.swing.JOptionPane;
 //import java.io.IOException;
 
-public final class PopupUI implements UI {
+final class PopupUI implements UI {
   public void displayMessage(String message) {
     JOptionPane.showMessageDialog(null,message);
   }

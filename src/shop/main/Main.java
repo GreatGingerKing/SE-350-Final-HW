@@ -10,9 +10,9 @@ public class Main {
     UI ui;
     if (Math.random() <= 0.5) {
       //ui = new shop.ui.TextUI();
-      ui = new shop.ui.PopupUI();
+      ui = UIFactory.getTextUI();
     } else {
-      ui = new shop.ui.PopupUI();
+      ui = UIFactory.getPopupUI();
       //ui = new shop.ui.TextUI();
     }
     Control control = new Control(Data.newInventory(), ui);

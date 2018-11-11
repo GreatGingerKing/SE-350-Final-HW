@@ -1,5 +1,5 @@
 package shop.ui;
 
 public interface UIFormTest {
-  public boolean run(String input);
+   boolean run(String input);
 }
