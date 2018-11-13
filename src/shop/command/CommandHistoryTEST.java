@@ -3,7 +3,7 @@ package shop.command;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CommandHistoryTEST  {
+ class CommandHistoryTEST  {
   
   @Test
   public void testEmptyExceptions() {

@@ -58,17 +58,20 @@ public class Data {
    * @throws IllegalArgumentException if Video invariant violated.
    */
   static public Video newVideo(String title, int year, String director) {
+    Video v;
+    try {
+      v = new VideoObj(title, year, director);
+    } catch (IllegalArgumentException e) {
+      throw e;
+    }
+
     Triple<String,Integer,String > vt = new Triple<>(title.trim(),year,director.trim());
 
     Video tv = videos.get(vt);
+
     if(tv==null) {
-      try {
-        Video v = new VideoObj(title, year, director);
-        videos.put(vt,v);
+      videos.put(vt,v);
         return v;
-      } catch (IllegalArgumentException e) {
-        throw e;
-      }
     }
     else{
       return tv;
@@ -93,7 +96,7 @@ public class Data {
   static public UndoableCommand newAddCmd(Inventory inventory, Video video, int change) {
     if (!(inventory instanceof InventorySet))
       throw new IllegalArgumentException();
-    return new CmdAdd((InventorySet) inventory, video, change);
+    return new ChangeCmd((InventorySet) inventory, video, change,(I,V,C)->(I.addNumOwned(V,C)));
   }
 
   /**
@@ -103,7 +106,7 @@ public class Data {
   static public UndoableCommand newOutCmd(Inventory inventory, Video video) {
     if (!(inventory instanceof InventorySet))
       throw new IllegalArgumentException();
-    return new CmdOut((InventorySet) inventory, video);
+    return new ChangeCmd((InventorySet) inventory, video,0,(I,V,C)->(I.checkOut(V)));
   }
   
   /**
@@ -113,7 +116,7 @@ public class Data {
   static public UndoableCommand newInCmd(Inventory inventory, Video video) {
     if (!(inventory instanceof InventorySet))
       throw new IllegalArgumentException();
-    return new CmdIn((InventorySet) inventory, video);
+    return new ChangeCmd((InventorySet) inventory, video,0,(I,V,C)->(I.checkIn(V)));
   }
   
   /**
