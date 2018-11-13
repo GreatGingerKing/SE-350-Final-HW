@@ -153,6 +153,11 @@ public class DataTEST {
     Video v2 = Data.newVideo("H",1999,"H");
 
     assertSame(v1,v2);
+
+    try{
+      Video v3 = Data.newVideo("H",1999, null);
+      fail("Oopies");
+    }catch(IllegalArgumentException e){}
   }
 
 }

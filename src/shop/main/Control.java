@@ -272,7 +272,7 @@ class Control {
       while (_state != States.EXITED) {
         _ui.processMenu(_state);
       }
-    } catch (Error e) {
+    } catch (UIError e) {
       _ui.displayError("UI closed");
     }
   }
